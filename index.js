@@ -6,9 +6,28 @@ const app = express()
 
 app.use(express.json())
 
-app.use(cors({
-    origin : ["http://localhost:5173" , "https://hubert-gomes.vercel.app"]
-}))
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://hubert-gomes.vercel.app",
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (
+      !origin ||
+      allowedOrigins.includes(origin) ||
+      origin.endsWith(".vercel.app")
+    ) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 app.get("/", (req , res) => {
     res.json({message : "The server is running!"})
