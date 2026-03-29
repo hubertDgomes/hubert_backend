@@ -1,19 +1,22 @@
 import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
-const visitorsSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
+const visitorsSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    message: {
+      type: String,
+      required: true,
+    },
   },
-  email: {
-    type: String,
-    required: true,
-  },
-  message: {
-    type: String,
-    required: true,
-  },
-});
+  { timestamps: true },
+);
 
-export default mongoose.model("usersmessage" , visitorsSchema)
+export default mongoose.model("usersmessage", visitorsSchema);
